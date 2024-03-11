@@ -1,0 +1,101 @@
+{
+    "name": "houdini-vex",
+    "displayName": "Houdini VEX",
+    "description": "Syntax highlighting for Houdini VEX",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.75.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "languages": [
+            {
+                "id": "vex",
+                "aliases": [
+                    "VEX",
+                    "vex"
+                ],
+                "extensions": [
+                    ".vfl"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "vex",
+                "path": "./snippets/snippets.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "vex",
+                "scopeName": "source.vfl",
+                "path": "./syntaxes/vex.tmLanguage.json"
+            }
+        ],
+        "configurationDefaults": {
+            "editor.tokenColorCustomizations": {
+                "textMateRules": [
+                    {
+                        "scope": [
+                            "keyword.control.vex"
+                        ],
+                        "settings": {
+                            "foreground": "#d56bd5"
+                        }
+                    },
+                    {
+                        "scope": [
+                            "string.quoted.vex"
+                        ],
+                        "settings": {
+                            "foreground": "#5cb85c"
+                        }
+                    },
+                    {
+                        "scope": [
+                            "attribute.vex",
+                            "include.vex"
+                        ],
+                        "settings": {
+                            "foreground": "#deae6e"
+                        }
+                    },
+                    {
+                        "scope": [
+                            "function.vex"
+                        ],
+                        "settings": {
+                            "foreground": "#66cdcb"
+                        }
+                    },
+                    {
+                        "scope": [
+                            "comment.vex"
+                        ],
+                        "settings": {
+                            "foreground": "#777777"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.25",
+        "@types/vscode": "^1.75.0",
+        "@vscode/test-cli": "^0.0.6",
+        "@vscode/test-electron": "^2.3.9"
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "lint": "eslint \"src/**/*.ts\"",
+        "watch": "tsc -watch -p ./",
+        "test": "vscode-test"
+    }
+}

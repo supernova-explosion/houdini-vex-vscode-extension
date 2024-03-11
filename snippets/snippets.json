@@ -1,0 +1,50 @@
+{
+    "if": {
+        "prefix": "if",
+        "body": [
+            "if (${1:condition}) {\n\t$0\n} else {\n\t\n}"
+        ],
+        "description": "If-Else Statement"
+    },
+    "for": {
+        "prefix": "for",
+        "body": [
+            "for (int ${1:i} = ${2:0}; ${1:i} < ${3:num}; ${1:i}++) {\n\t$0\n}"
+        ],
+        "description": "For Loop Statement"
+    },
+    "foreach (value; array)": {
+        "prefix": "foreach (value; array)",
+        "body": [
+            "foreach (${1:element_type} ${2:value}; ${3:array}) {\n\t$0\n}"
+        ],
+        "description": "For-Each Loop Statement"
+    },
+    "foreach (index, value; array)": {
+        "prefix": "foreach (index, value; array)",
+        "body": [
+            "foreach (${1:index}, ${2:value}; ${3:array}) {\n\t$0\n}"
+        ],
+        "description": "For-Each Loop Statement"
+    },
+    "while": {
+        "prefix": "while",
+        "body": [
+            "while (${1:condition}) {\n\t$0\n}"
+        ],
+        "description": "While Loop Statement"
+    },
+    "do while": {
+        "prefix": "do while",
+        "body": [
+            "do {\n\t$1\n} while (${2:condition});"
+        ],
+        "description": "While Loop Statement"
+    },
+    "printf": {
+        "prefix": "printf",
+        "body": [
+            "printf(\"${1:%s\\n}\", ${2:text});"
+        ]
+    }
+}
