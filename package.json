@@ -3,7 +3,7 @@
     "displayName": "Houdini VEX",
     "description": "Syntax highlighting for Houdini VEX",
     "version": "0.0.1",
-    "publisher": "Supernova Explosion",
+    "publisher": "supernova-explosion",
     "icon": "images/icon.png",
     "repository": {
         "type": "git",
