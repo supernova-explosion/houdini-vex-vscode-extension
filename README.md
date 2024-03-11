@@ -9,7 +9,7 @@
 ![](https://raw.githubusercontent.com/supernova-explosion/houdini-vex-vscode-extension/main/images/completion.png)
 
 - Hover Document
-![](https://raw.githubusercontent.com/supernova-explosion/houdini-vex-vscode-extension/main/images/hover-doc.png)
+![](https://raw.githubusercontent.com/supernova-explosion/houdini-vex-vscode-extension/main/images/hover.png)
 
 - Base Snippets
 ![](https://raw.githubusercontent.com/supernova-explosion/houdini-vex-vscode-extension/main/images/snippets.png)

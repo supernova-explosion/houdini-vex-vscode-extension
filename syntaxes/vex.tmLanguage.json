@@ -18,7 +18,10 @@
             "include": "#comment"
         },
         {
-            "include": "#string"
+            "include": "#doubleString"
+        },
+        {
+            "include": "#singleString"
         }
     ],
     "repository": {
@@ -74,10 +77,21 @@
                 }
             ]
         },
-        "string": {
-            "name": "string.quoted.vex",
-            "begin": "\"|'",
-            "end": "\"|'",
+        "doubleString": {
+            "name": "string.double.quoted.vex",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape.vex",
+                    "match": "\\\\."
+                }
+            ]
+        },
+        "singleString": {
+            "name": "string.single.quoted.vex",
+            "begin": "'",
+            "end": "'",
             "patterns": [
                 {
                     "name": "constant.character.escape.vex",

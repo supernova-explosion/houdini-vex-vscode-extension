@@ -39,11 +39,23 @@ export function activate(context: vscode.ExtensionContext) {
             }
         }
     });
-    const completionProvider = vscode.languages.registerCompletionItemProvider("*", {
+    const completionProvider = vscode.languages.registerCompletionItemProvider(language, {
         provideCompletionItems(document, position, token, context) {
             const completionItems: vscode.CompletionItem[] = [];
+            const seenVariables = new Set();
+            const textBeforeCursor = document.getText(new vscode.Range(new vscode.Position(0, 0), position));
+            const regex = /\s+(\w+)\s*(?:=.*)?;/g;
+            let match;
+            while ((match = regex.exec(textBeforeCursor)) !== null) {
+                const variableName = match[1];
+                if (!seenVariables.has(variableName)) {
+                    const completionItem = new vscode.CompletionItem(variableName, vscode.CompletionItemKind.Variable);
+                    completionItems.push(completionItem);
+                    seenVariables.add(variableName);
+                }
+            }
             keywords.forEach(item => {
-                completionItems.push(new vscode.CompletionItem(item.trim(), vscode.CompletionItemKind.Text));
+                completionItems.push(new vscode.CompletionItem(item.trim(), vscode.CompletionItemKind.Keyword));
             });
             functions.forEach(item => {
                 let [label, insertText] = item.trim().split("#");
@@ -56,7 +68,7 @@ export function activate(context: vscode.ExtensionContext) {
             });
             return completionItems;
         }
-    })
+    });
     context.subscriptions.push(hoverProvider, completionProvider);
 }
 
@@ -75,4 +87,10 @@ function readJSON(filePath: string) {
             }
         });
     });
+}
+
+function openHelpDoc(uri: vscode.Uri) {
+    if (uri.path.startsWith("http://127.0.0.1:48626")) {
+        vscode.env.openExternal(uri);
+    }
 }

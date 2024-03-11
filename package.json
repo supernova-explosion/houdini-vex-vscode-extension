@@ -2,7 +2,7 @@
     "name": "houdini-vex",
     "displayName": "Houdini VEX",
     "description": "Syntax highlighting for Houdini VEX",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publisher": "supernova-explosion",
     "icon": "images/icon.png",
     "repository": {
@@ -56,7 +56,8 @@
                     },
                     {
                         "scope": [
-                            "string.quoted.vex"
+                            "string.double.quoted.vex",
+                            "string.single.quoted.vex"
                         ],
                         "settings": {
                             "foreground": "#5cb85c"
