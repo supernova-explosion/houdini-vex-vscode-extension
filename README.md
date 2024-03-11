@@ -14,12 +14,6 @@
 - Base Snippets
 ![](https://raw.githubusercontent.com/supernova-explosion/houdini-vex-vscode-extension/main/images/snippets.png)
 
-## Release Notes
-
-### [0.0.1]
-
-- Updated Houdini 20
-
 ## More powerful houdini code editor
 
 * [MagiCode](https://unrealhoudini.gumroad.com/l/rawnh)
