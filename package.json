@@ -3,6 +3,12 @@
     "displayName": "Houdini VEX",
     "description": "Syntax highlighting for Houdini VEX",
     "version": "0.0.1",
+    "publisher": "Supernova Explosion",
+    "icon": "images/icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/supernova-explosion/houdini-vex-vscode-extension"
+    },
     "engines": {
         "vscode": "^1.75.0"
     },
