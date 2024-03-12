@@ -1,8 +1,8 @@
 {
     "name": "houdini-vex",
     "displayName": "Houdini VEX",
-    "description": "Syntax highlighting for Houdini VEX",
-    "version": "0.0.2",
+    "description": "Syntax highlighting for Houdini VEX, supported Houdini 20",
+    "version": "0.0.3",
     "publisher": "supernova-explosion",
     "icon": "images/icon.png",
     "repository": {
@@ -15,7 +15,7 @@
     "categories": [
         "Programming Languages"
     ],
-    "main": "./out/extension.js",
+    "main": "./dist/extension.js",
     "contributes": {
         "languages": [
             {
@@ -43,6 +43,20 @@
                 "path": "./syntaxes/vex.tmLanguage.json"
             }
         ],
+        "configuration": {
+            "title": "Houdini VEX",
+            "properties": {
+                "houdiniVEX.helpDocumentation": {
+                    "type": "string",
+                    "enum": [
+                        "Online",
+                        "Local"
+                    ],
+                    "default": "Online",
+                    "description": "Open online documentation or local documentation when clicking a function."
+                }
+            }
+        },
         "configurationDefaults": {
             "editor.tokenColorCustomizations": {
                 "textMateRules": [

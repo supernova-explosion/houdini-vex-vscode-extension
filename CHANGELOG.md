@@ -6,4 +6,4 @@
 
 ## [0.0.1]
 
-- Updated Houdini 20
+- Supported Houdini 20
