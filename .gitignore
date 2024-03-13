@@ -4,3 +4,4 @@ node_modules
 /.vscodeignore
 /dist
 /test
+/certs

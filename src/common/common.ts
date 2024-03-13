@@ -1,19 +1,17 @@
 import * as vscode from "vscode";
-import * as fs from "fs";
-import * as path from "path";
 
 export function activate(context: vscode.ExtensionContext) {
     const language = "vex";
     const extensionId = "houdiniVEX";
     const settingId = "helpDocumentation";
+    const keywordsFilePath = "/completions/keywords.txt";
+    const functionsFilePath = "/completions/functions.txt";
     const config = vscode.workspace.getConfiguration(extensionId).get<string>(settingId)!;
-    const extensionPath = context.extensionPath;
-    const keywordsFilePath = path.join(extensionPath, "/completions/keywords.txt");
-    const keywords = fs.readFileSync(keywordsFilePath, "utf-8").split("\n");
-    const functionsFilePath = path.join(extensionPath, "/completions/functions.txt");
-    const functions = fs.readFileSync(functionsFilePath, "utf-8").split("\n");
+    const extensionUri = context.extensionUri;
+    const keywords = readFile(keywordsFilePath, extensionUri).then(data => data!.split("\n"));
+    const functions = readFile(functionsFilePath, extensionUri).then(data => data!.split("\n"));
     let docsJson: any;
-    readJSON(config, extensionPath).then(data => {
+    readJSON(config, extensionUri).then(data => {
         docsJson = data;
     });
     const hoverProvider = vscode.languages.registerHoverProvider(language, {
@@ -57,10 +55,10 @@ export function activate(context: vscode.ExtensionContext) {
                     seenVariables.add(variableName);
                 }
             }
-            keywords.forEach(item => {
+            keywords.then(data => data.forEach(item => {
                 completionItems.push(new vscode.CompletionItem(item.trim(), vscode.CompletionItemKind.Keyword));
-            });
-            functions.forEach(item => {
+            }));
+            functions.then(data => data.forEach(item => {
                 let [label, insertText] = item.trim().split("#");
                 completionItems.push({
                     label: label,
@@ -68,14 +66,14 @@ export function activate(context: vscode.ExtensionContext) {
                     kind: vscode.CompletionItemKind.Snippet,
                     sortText: "z"
                 });
-            });
+            }));
             return completionItems;
         }
     });
     const configHandler = vscode.workspace.onDidChangeConfiguration(event => {
         if (event.affectsConfiguration("houdiniVEX.helpDocumentation")) {
             const newValue = vscode.workspace.getConfiguration(extensionId).get<string>(settingId)!;
-            readJSON(newValue, extensionPath).then(data => {
+            readJSON(newValue, extensionUri).then(data => {
                 docsJson = data;
             });
         }
@@ -83,16 +81,28 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(hoverProvider, completionProvider, configHandler);
 }
 
-function readJSON(config: string, extensionPath: string) {
+function readJSON(config: string, extensionUri: vscode.Uri) {
     return new Promise((resolve) => {
         let docsFileName = "docs_online.json";
         if (config === "Local") {
             docsFileName = "docs.json";
         }
-        const filePath = path.join(extensionPath, `/docs/${docsFileName}`);
-        fs.readFile(filePath, "utf8", (err, data) => {
-            const jsonData = JSON.parse(data);
+        const filePath = `/docs/${docsFileName}`;
+        readFile(filePath, extensionUri).then(data => {
+            const jsonData = JSON.parse(data!);
             resolve(jsonData);
         });
     });
+}
+
+async function readFile(path: string, extensionUri: vscode.Uri): Promise<string | undefined> {
+    try {
+        const uri = vscode.Uri.joinPath(extensionUri, path);
+        const data = await vscode.workspace.fs.readFile(uri);
+        const decoder = new TextDecoder();
+        return decoder.decode(data);
+    } catch (error) {
+        console.error('Failed to read file:', error);
+        return undefined;
+    }
 }

@@ -2,7 +2,7 @@
     "name": "houdini-vex",
     "displayName": "Houdini VEX",
     "description": "Syntax highlighting for Houdini VEX, supported Houdini 20",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "publisher": "supernova-explosion",
     "icon": "images/icon.png",
     "repository": {
@@ -15,8 +15,15 @@
     "categories": [
         "Programming Languages"
     ],
-    "main": "./dist/extension.js",
+    "main": "./dist/main/extension.js",
+    "browser": "./dist/browser/extension.js",
     "contributes": {
+        "commands": [
+            {
+                "command": "extension.readJsonFile",
+                "title": "Read JSON File"
+            }
+        ],
         "languages": [
             {
                 "id": "vex",
@@ -110,13 +117,19 @@
         "@types/node": "^20.11.25",
         "@types/vscode": "^1.75.0",
         "@vscode/test-cli": "^0.0.6",
-        "@vscode/test-electron": "^2.3.9"
+        "@vscode/test-electron": "^2.3.9",
+        "ts-loader": "^9.5.1",
+        "webpack-cli": "^5.1.4"
     },
     "scripts": {
-        "vscode:prepublish": "npm run compile",
+        "vscode:prepublish": "npm run package",
         "compile": "tsc -p ./",
+        "watch-web": "webpack --watch",
+        "package": "webpack --mode production --devtool hidden-source-map",
         "lint": "eslint \"src/**/*.ts\"",
-        "watch": "tsc -watch -p ./",
         "test": "vscode-test"
+    },
+    "dependencies": {
+        "path-browserify": "^1.0.1"
     }
 }
